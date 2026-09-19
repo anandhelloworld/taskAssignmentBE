@@ -15,6 +15,17 @@ npm run dev            # nodemon, http://localhost:5000
 
 Health check: `GET /api/health` → `{"status":"ok"}`.
 
+### Seed demo data (optional)
+
+With the server running (and `MONGO_URI` pointing at the database you want to fill), in a second terminal:
+
+```bash
+npm run seed:users   # 3 managers → 9 team leads → 27 employees (m1..m3, l1..l9, e1..e27, password test@123)
+npm run seed:tasks   # sample tasks, one cross-team reassignment, one completed task
+```
+
+Both scripts call the API, so the server must be up. Set `API_URL` to target a different backend (default `http://localhost:5000/api`), e.g. `API_URL=https://your-host/api npm run seed:users`. `seed:users` is not idempotent — running it twice fails on duplicate emails — and `seed:tasks` needs the users from `seed:users`.
+
 ### Environment variables
 
 | Variable | Purpose |
